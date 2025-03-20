@@ -1,0 +1,9 @@
+[project]
+name = "lightnode-project"
+
+[build]
+builder = "docker"
+dockerfile = "Dockerfile"
+
+[deploy]
+command = "./lightnode"
