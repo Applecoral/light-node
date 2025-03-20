@@ -12,21 +12,17 @@ import (
 )
 
 func GetCompressedPublicKey() (string, error) {
-	privKey := GetEnv("PRIVATE_KEY", "")
-
-	privateKey, err := crypto.HexToECDSA(privKey)
-	if err != nil {
-		return "", fmt.Errorf("invalid private key: %v", err)
-	}
-
-	// Get the public key
-	publicKey := privateKey.Public().(*ecdsa.PublicKey)
-
-	// Serialize the public key in compressed format
-	compressedPubKey := secp256k1.CompressPubkey(publicKey.X, publicKey.Y)
-
-	// Convert to hex string
-	return hex.EncodeToString(compressedPubKey), nil
+    privKey := GetEnv("PRIVATE_KEY", "")
+    privateKey, err := crypto.HexToECDSA(privKey)
+    if err != nil {
+        return "", fmt.Errorf("invalid private key: %v", err)
+    }
+    // Get the public key
+    publicKey := privateKey.Public().(*ecdsa.PublicKey)
+    // Serialize the public key in compressed format
+    compressedPubKey := crypto.CompressPubkey(publicKey)
+  // Convert to hex string
+  return hex.EncodeToString(compressedPubKey), nil
 }
 
 func GetWalletAddress() (*string, error) {
